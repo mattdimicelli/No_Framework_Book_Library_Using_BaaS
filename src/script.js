@@ -1,3 +1,6 @@
+import './reset.css';
+import './styles.css';
+
 let myLibrary = [];
 
 initializeApp();
