@@ -1,6 +1,25 @@
 let myLibrary = [];
-let openNewBookFormBtn = document.querySelector('button.open-new-book-form');
-openNewBookFormBtn.addEventListener('click', openNewBookForm);
+
+initializeApp();
+
+function initializeApp() {
+    let openNewBookFormBtn = document.querySelector('button.open-new-book-form');
+    openNewBookFormBtn.addEventListener('click', openNewBookForm);
+    populateStats();
+    renderBooks();
+}
+
+function populateStats() {
+    const numRead = myLibrary.filter(book => book.readStatus === 'read').length;
+    const numNotRead = myLibrary.filter(book => book.readStatus === 'not-read')
+    .length;
+    const numReading = myLibrary.filter(book => book.readStatus === 'reading')
+    .length;
+    document.querySelector('.total-num').textContent = String(myLibrary.length);
+    document.querySelector('.read-num').textContent = String(numRead);
+    document.querySelector('.not-read-num').textContent = String(numNotRead);
+    document.querySelector('.reading-num').textContent = String(numReading);
+}
 
 function openNewBookForm() {
     let form = 
@@ -132,8 +151,6 @@ function openNewBookForm() {
     document.querySelector('.library').insertAdjacentHTML('beforeend', form);    
 }
 
-renderBooks();
-
 function renderBooks() {
     let library = document.querySelector('.library');
     let fragment = new DocumentFragment();
@@ -241,7 +258,6 @@ function newBookFormSubmitHandler(e) {
     e.preventDefault();
     const form = document.querySelector('.new-book-form');
     const valid = form.reportValidity();
-    console.log(valid);
     if (!valid) return;
 
     const title = document.querySelector('#title').value.trim(); 
