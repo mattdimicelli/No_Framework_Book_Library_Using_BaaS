@@ -1,0 +1,22 @@
+{
+  "name": "library_2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mattdimicelli/library2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mattdimicelli/library2/issues"
+  },
+  "homepage": "https://github.com/mattdimicelli/library2#readme",
+  "devDependencies": {
+    "eslint": "^8.5.0"
+  }
+}

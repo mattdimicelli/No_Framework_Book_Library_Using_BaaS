@@ -8,10 +8,82 @@
     <link rel="stylesheet" href="./reset.css">
     <link rel="stylesheet" href="./styles.css">
     <title>My Library</title>
+    <style>
+        :root {
+            --blackish: #212121;
+            --light-teal: #32E0C4;
+            --dark-teal: #0D7377;
+            --lite-grey: #EEEEEE;
+        }
+        body {
+            font-family: sans-serif;
+            
+        }
+        h1 {
+            font-size: 3.5rem;
+            text-align: center;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            font-weight: 900;
+        }
+        .stats {
+            padding: 0.5rem 1rem;
+            color: var(--blackish);
+            border: 1px solid var(--blackish);
+            margin: 10px 20px;
+        }
+        .stats-title {
+            font-size: 2rem;
+            font-weight: 500;
+            text-align: center;
+        }
+    
+    </style>
 </head>
 <body>
-    <div class="library">
+    <header>
+        <h1>My Library</h1>
+        <aside class="stats">
+            <h2 class="stats-title">Library Stats</h2>
+            <p>Total: <span class="total-num"></span></p>
+            <p>Read: <span class="read-num"></span></p>
+            <p>Haven't read: <span class="not-read-num"></span></p>
+            <p>Reading: <span class="reading-num"></span></p>
+        </aside>
+        <div>
+            <fieldset>
+                <legend>Sort By: </legend>
+                <select>
+                    <option>Title</option>
+                    <option>Author</option>
+                    <option>Pages</option>
+                    <option>Read Status</option>
+                    <option>Language</option>
+                    <option>Date of Publication</option>
+                    <option>Genre</option>
+                </select>
+                <select>
+                    <option>Desc</option>
+                    <option>Asc</option>
+                </select>
+            </fieldset>
+        </div>
+        <div class="read-key">
+            <div class="read-color-square"></div>
+            Read
+        </div>
+        <div class="not-read-key">
+            <div class="not-read-color-square"></div>
+            Haven't read
+        </div>
+        <div class="reading-key">
+            <div class="reading-color-square"></div>
+            Reading
+        </div>
+    </header>
+    <main class="library">
         
-    </div>
+    </main>
+    <button class="open-new-book-form">+</button>
 </body>
 </html>
