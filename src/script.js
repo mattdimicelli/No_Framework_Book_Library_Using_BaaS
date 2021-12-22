@@ -1,12 +1,17 @@
-// import './reset.css';
-// import './styles.css';
+import './reset.css';
+import './styles.css';
 
 let myLibrary = [];
 
 initializeApp();
 
 function initializeApp() {
-    console.log('fire')
+    window.newBookFormSubmitHandler = newBookFormSubmitHandler;
+    window.newBookFormCancelHandler = newBookFormCancelHandler;
+    /* the two inline event handlers in the HTML call these functions
+    which are renamed when Webpack bundles the app.  Both of these functions
+    are added to the global scope so that the HTML can call them even
+    after the bundling */
     let openNewBookFormBtn = document.querySelector('button.open-new-book-form');
     openNewBookFormBtn.addEventListener('click', openNewBookForm);
     populateStats();
@@ -266,7 +271,6 @@ function Book(title, author, pages, readStatus, language, published, genres) {
 
 // eslint-disable-next-line no-unused-vars
 function newBookFormSubmitHandler(e) {
-    console.log('handler')
     e.preventDefault();
     const form = document.querySelector('.new-book-form');
     const valid = form.reportValidity();
