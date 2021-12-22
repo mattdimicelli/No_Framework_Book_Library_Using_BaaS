@@ -7,6 +7,10 @@ const config = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js'
   },
+  devServer: {
+    static: './dist',
+  },
+  devtool: 'inline-source-map',
   module: {
     rules: [
       {

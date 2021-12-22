@@ -1,11 +1,12 @@
 import './reset.css';
-import './styles.css';
+// import './styles.css';
 
 let myLibrary = [];
 
 initializeApp();
 
 function initializeApp() {
+    console.log('fire')
     let openNewBookFormBtn = document.querySelector('button.open-new-book-form');
     openNewBookFormBtn.addEventListener('click', openNewBookForm);
     populateStats();
@@ -160,15 +161,20 @@ function renderBooks() {
     myLibrary.forEach((book, index) => {
         const {title, author, pages, readStatus, language, published, genres} 
         = book;
-        const whitespaceOnlyRegex = /\S+/;
+        const whitespaceOnlyRegex = /\s+/;
         let bookCard = document.createElement('article');
         let bookTitle = document.createElement('h2');
         bookTitle.textContent = `Title: ${title}`;
         let by = document.createElement('p');
-        by.textContent = whitespaceOnlyRegex.test(author) ? '' :`By: ${author}`;
+        if(whitespaceOnlyRegex.test(author) || author === '') {
+            by.textContent = '';
+        }
+        else by.textContent = `By: ${author}`;
         let bookPages = document.createElement('p');
-        bookPages.textContent = whitespaceOnlyRegex.test(pages) ? ''
-        : `Pages: ${pages}`;
+        if (whitespaceOnlyRegex.test(pages) || pages === '') {
+            pages.textContent = '';
+        }
+        else bookPages.textContent = `Pages: ${pages}`;
         let readStatusSelect = document.createElement('select');
         readStatusSelect.id = 'read-status';
         readStatusSelect.required = true;
@@ -189,8 +195,10 @@ function renderBooks() {
         else if (readStatus === 'reading') readingOption.selected = true;
         readStatusSelect.append(readOption, notReadOption, readingOption);
         let bookLanguage = document.createElement('p');
-        bookLanguage.textContent = whitespaceOnlyRegex(language) ? ''
-        : `Language: ${language}`;
+        if (whitespaceOnlyRegex.test(language) || language === '') {
+            bookLanguage.textContent = '';
+        }
+        else bookLanguage.textContent = `Language: ${language}`;
         let datePublished = document.createElement('p');
         datePublished.textContent = published ? `Published: ${published}` : '';
         let bookGenre = document.createElement('p');
@@ -258,6 +266,7 @@ function Book(title, author, pages, readStatus, language, published, genres) {
 
 // eslint-disable-next-line no-unused-vars
 function newBookFormSubmitHandler(e) {
+    console.log('handler')
     e.preventDefault();
     const form = document.querySelector('.new-book-form');
     const valid = form.reportValidity();
@@ -319,3 +328,4 @@ Book.prototype.removeBook = function(e) {
 
 
 
+  
