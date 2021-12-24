@@ -11,77 +11,149 @@
             --light-teal: #32E0C4;
             --dark-teal: #0D7377;
             --lite-grey: #EEEEEE;
+            --lite-blue: #4586FF;
         }
         body {
             font-family: sans-serif;
+            background-color: var(--lite-grey);
             
         }
+        input, textarea, select {
+            /* reestablish the default browser styles for just the input elements,
+            which were eliminated by the CSS reset */
+            all: revert;
+        }
         h1 {
-            font-size: 3.5rem;
+            font-size: 3rem;
             text-align: center;
             margin-top: 1rem;
             margin-bottom: 1rem;
             font-weight: 900;
         }
         .stats {
-            padding: 0.5rem 1rem;
+            padding: 0.5rem 2rem;
             color: var(--blackish);
             border: 1px solid var(--blackish);
             margin: 10px 20px;
         }
         .stats-title {
-            font-size: 2rem;
+            font-size: 1.5rem;
             font-weight: 500;
             text-align: center;
+        }
+        .stat-values {
+            margin-left: auto;
+        }
+        /* .hidden {
+            display: none;
+        } */
+        #firebaseui-auth-container, #loader {
+            display: none;
+        }
+        legend.sort-legend {
+            float: left;
+        }
+        .sort-key-bar {
+            border: 1px solid var(--blackish);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 0.5rem 1rem;
+        }
+        .sort-select, .sort-order-select {
+            margin-left: 0.5rem;
+        }
+        .read-color-square {
+            background: linear-gradient(135deg, var(--dark-teal) 30%, var(--light-teal) 100%);
+        }
+        .not-read-color-square {
+            background: linear-gradient(135deg, var(--light-teal) 0%, var(--lite-blue) 50%);
+        }
+        .reading-color-square {
+            background: linear-gradient(135deg, #e3e3e3 0%, #5d6874 100%);
+        }
+        .read-color-square,
+        .not-read-color-square,
+        .reading-color-square {
+            height: 30px;
+            width: 30px;
+            display: inline-block;
+            border-radius: 3px;
+            flex-shrink: 0
+        }
+        .keys {
+            font-size: 0.8rem;
+            display: flex;
+            gap: 2rem;
+        }
+        .read-key, .not-read-key,
+        .reading-key {
+            display: flex;
+            align-items: center;
+            gap: 0.2rem;
         }
     
     </style>
 </head>
 <body>
-    <header>
-        <h1>My Library</h1>
-        <aside class="stats">
-            <h2 class="stats-title">Library Stats</h2>
-            <p>Total: <span class="total-num"></span></p>
-            <p>Read: <span class="read-num"></span></p>
-            <p>Haven't read: <span class="not-read-num"></span></p>
-            <p>Reading: <span class="reading-num"></span></p>
-        </aside>
-        <div>
-            <fieldset>
-                <legend>Sort By: </legend>
-                <select>
-                    <option>Title</option>
-                    <option>Author</option>
-                    <option>Pages</option>
-                    <option>Read Status</option>
-                    <option>Language</option>
-                    <option>Date of Publication</option>
-                    <option>Genre</option>
-                </select>
-                <select>
-                    <option>Desc</option>
-                    <option>Asc</option>
-                </select>
-            </fieldset>
-        </div>
-        <div class="read-key">
-            <div class="read-color-square"></div>
-            Read
-        </div>
-        <div class="not-read-key">
-            <div class="not-read-color-square"></div>
-            Haven't read
-        </div>
-        <div class="reading-key">
-            <div class="reading-color-square"></div>
-            Reading
-        </div>
-    </header>
-    <main class="library">
-        
-    </main>
-    <button class="open-new-book-form">+</button>
+    <div id="firebaseui-auth-container"></div>
+    <div id="loader">Loading...</div>
+    <div class="wrapper hidden">
+        <header>
+            <h1>My Library</h1>
+            <aside class="stats">
+                <h2 class="stats-title">Library Stats</h2>
+                <div class="stat-names">
+                    <p>Total: </p>
+                    <p>Read: </p>
+                    <p>Haven't read: </p>
+                    <p>Reading: </p>
+                </div>
+                <div class="stat-values">
+                    <p class="total-num"></p>
+                    <p class="read-num"></p>
+                    <p class="not-read-num"></p>
+                    <p class="reading-num"></p>
+                </div>
+            </aside>
+            <div class="sort-key-bar">
+                <fieldset class="sort">
+                    <legend class="sort-legend">Sort By: </legend>
+                    <select class="sort-select">
+                        <option>Title</option>
+                        <option>Author</option>
+                        <option>Pages</option>
+                        <option>Read Status</option>
+                        <option>Language</option>
+                        <option>Date of Publication</option>
+                        <option>Genre</option>
+                    </select>
+                    <select class="sort-order-select">
+                        <option>Desc</option>
+                        <option>Asc</option>
+                    </select>
+                </fieldset>
+                <div class="keys">
+                    <div class="read-key">
+                        <div class="read-color-square"></div>
+                        Read
+                    </div>
+                    <div class="not-read-key">
+                        <div class="not-read-color-square"></div>
+                        Not Read
+                    </div>
+                    <div class="reading-key">
+                        <div class="reading-color-square"></div>
+                        Reading
+                    </div>
+                </div>  
+            </div>
+        </header>
+        <main class="library">
+            
+        </main>
+        <button class="open-new-book-form">+</button>
+    </div>
     <script src="./bundle.js"></script>
 
 </body>
