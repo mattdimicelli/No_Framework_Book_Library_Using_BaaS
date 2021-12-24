@@ -16,6 +16,13 @@ Book.prototype.info = function() {
 }
 Book.prototype.setReadStatus = function(e, book) {
     const readStatus = e.currentTarget.value;
+    const bookCard = e.currentTarget.parentElement;
+    let bookCardColorClass;
+    if (readStatus === 'read') bookCardColorClass = 'read-color';
+    if (readStatus === 'not-read') bookCardColorClass = 'not-read-color';
+    if (readStatus === 'reading') bookCardColorClass = 'reading-color';
+    bookCard.classList.remove('read-color', 'not-read-color', 'reading-color');
+    bookCard.classList.add(bookCardColorClass);
     book.readStatus = readStatus;
 }
 Book.prototype.removeBook = function(e) {

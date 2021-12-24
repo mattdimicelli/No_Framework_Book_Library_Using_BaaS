@@ -23,6 +23,29 @@
             which were eliminated by the CSS reset */
             all: revert;
         }
+        .open-new-book-form {
+            position: fixed;
+            right: 25px;
+            bottom: 15px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--blackish);
+            color: var(--lite-grey);
+            border-radius: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            border: 3px;
+            border-style: outset;
+            border-color: var(--lite-grey);
+        }
+
+        .open-new-book-form:hover {
+            background-color: var(--lite-grey);
+            color: var(--blackish);
+            border: 3px solid var(--blackish);
+        }
         h1 {
             font-size: 3rem;
             text-align: center;
@@ -34,7 +57,7 @@
             padding: 0.5rem 2rem;
             color: var(--blackish);
             border: 1px solid var(--blackish);
-            margin: 10px 20px;
+            margin: 25px 20px;
         }
         .stats-title {
             font-size: 1.5rem;
@@ -59,27 +82,28 @@
             flex-wrap: wrap;
             justify-content: center;
             padding: 0.5rem 1rem;
+            gap: 1rem;
         }
         .sort-select, .sort-order-select {
             margin-left: 0.5rem;
         }
-        .read-color-square {
+        .read-color {
             background: linear-gradient(135deg, var(--dark-teal) 30%, var(--light-teal) 100%);
         }
-        .not-read-color-square {
+        .not-read-color {
             background: linear-gradient(135deg, var(--light-teal) 0%, var(--lite-blue) 50%);
         }
-        .reading-color-square {
+        .reading-color {
             background: linear-gradient(135deg, #e3e3e3 0%, #5d6874 100%);
         }
-        .read-color-square,
-        .not-read-color-square,
-        .reading-color-square {
+        .key-square,
+        .key-square,
+        .key-square {
             height: 30px;
             width: 30px;
             display: inline-block;
             border-radius: 3px;
-            flex-shrink: 0
+            flex-shrink: 0;
         }
         .keys {
             font-size: 0.8rem;
@@ -106,7 +130,7 @@
                 <div class="stat-names">
                     <p>Total: </p>
                     <p>Read: </p>
-                    <p>Haven't read: </p>
+                    <p>Not Read: </p>
                     <p>Reading: </p>
                 </div>
                 <div class="stat-values">
@@ -135,15 +159,15 @@
                 </fieldset>
                 <div class="keys">
                     <div class="read-key">
-                        <div class="read-color-square"></div>
+                        <div class="read-color key-square"></div>
                         Read
                     </div>
                     <div class="not-read-key">
-                        <div class="not-read-color-square"></div>
+                        <div class="not-read-color key-square"></div>
                         Not Read
                     </div>
                     <div class="reading-key">
-                        <div class="reading-color-square"></div>
+                        <div class="reading-color key-square"></div>
                         Reading
                     </div>
                 </div>  

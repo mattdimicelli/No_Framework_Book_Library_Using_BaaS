@@ -47,6 +47,8 @@ export function newBookFormCancelHandler() {
 }
 
 export function openNewBookForm() {
+    const formInDOM = document.querySelector('.new-book-form');
+    if(formInDOM) return;
     let form = 
     `<form class="new-book-form">
         <label for="title">Title*</label>

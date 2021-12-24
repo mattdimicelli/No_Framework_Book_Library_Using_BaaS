@@ -5,12 +5,13 @@ function renderBooks() {
     myLibrary.forEach((book, index) => {
         const {title, author, pages, readStatus, language, published, genres} 
         = book;
-        const whitespaceOnlyRegex = /\s+/;
+        const whitespaceOnlyRegex = /^\s+$/;
         let bookCard = document.createElement('article');
         let bookTitle = document.createElement('h2');
         bookTitle.textContent = `Title: ${title}`;
         let by = document.createElement('p');
         if(whitespaceOnlyRegex.test(author) || author === '') {
+            console.log(whitespaceOnlyRegex.test(author))
             by.textContent = '';
         }
         else by.textContent = `By: ${author}`;
@@ -62,6 +63,7 @@ function renderBooks() {
         removeBtn.addEventListener('click', function(e) {
             book.removeBook(e);
         });
+        bookCard.classList.add('read-color');
         bookCard.append(
             bookTitle,
             by,
