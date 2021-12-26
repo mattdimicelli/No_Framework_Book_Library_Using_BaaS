@@ -64,12 +64,14 @@ export function openNewBookForm() {
         <input type="number" id="pages" placeholder="Number of pages">
         
         <label for="read-status">Have you read this book?</label>
-        <select id="read-status-select" required>
-            <option value="was-read" selected>Read</option>
-            <option value="not-read">Haven't read</option>
-            <option value="reading">Reading</option>
-        </select>
-
+        <div class="select">
+            <select id="read-status-select" required>
+                <option value="was-read" selected>Read</option>
+                <option value="not-read">Haven't read</option>
+                <option value="reading">Reading</option>
+            </select>
+            <span class="focus"></span>
+        </div>
         <label for="language">Language</label>
         <input id="language" type="text" placeholder="Language" list="languages"
         autocomplete="off">
@@ -118,8 +120,9 @@ export function openNewBookForm() {
     <input type="date" id="published">
 
     <label for="genres">Genre(s)</label>
-    <select type="text" id="genres" multiple="true">
-        <option value="">Genres</option>
+    <div class="select">
+        <select type="text" id="genres" multiple="true">
+            <option value="">Genres</option>
     `;
     const genres = [
         'Action & Adventure',
@@ -164,7 +167,9 @@ export function openNewBookForm() {
     });
     form +=
     `
-    </select>
+        </select>
+        <span class="focus"></span>
+    </div>
     <button class="new-book-form-submit" 
     onclick="newBookFormSubmitHandler(event)">
     Add Book

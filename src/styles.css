@@ -1,0 +1,147 @@
+:root {
+    --blackish: #212121;
+    --light-teal: #32E0C4;
+    --dark-teal: #0D7377;
+    --lite-grey: #EEEEEE;
+    --lite-blue: #4586FF;
+    --select-border: #777;
+    --select-focus: blue;
+    --select-arrow: var(--select-border);
+}
+
+body {
+    font-family: sans-serif;
+    background-color: var(--lite-grey);
+    
+}
+
+.read-color {
+    background-image: linear-gradient(135deg, var(--dark-teal) 30%, var(--light-teal) 100%);
+}
+.not-read-color {
+    background-image: linear-gradient(135deg, var(--light-teal) 0%, var(--lite-blue) 50%);
+}
+.reading-color {
+    background-image: linear-gradient(135deg, #e3e3e3 0%, #5d6874 100%);
+}
+
+input, textarea {
+    /* reestablish the default browser styles for just the input elements,
+    which were eliminated by the CSS reset */
+    all: revert;
+}
+
+/* .hidden {
+    display: none;
+} */
+#firebaseui-auth-container, #loader {
+    display: none;
+}
+
+.open-new-book-form {
+    position: fixed;
+    right: 25px;
+    bottom: 15px;
+    width: 50px;
+    height: 50px;
+    background-color: var(--blackish);
+    color: var(--lite-grey);
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    border: 3px;
+    border-style: outset;
+    border-color: var(--lite-grey);
+}
+
+.open-new-book-form:hover {
+    background-color: var(--lite-grey);
+    color: var(--blackish);
+    border: 3px solid var(--blackish);
+}
+h1 {
+    font-size: 3rem;
+    text-align: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-weight: 900;
+}
+.stats {
+    padding: 0.5rem 2rem;
+    color: var(--blackish);
+    border: 1px solid var(--blackish);
+    margin: 25px 20px;
+}
+.stats-title {
+    font-size: 1.5rem;
+    font-weight: 500;
+    text-align: center;
+}
+.stat-values {
+    margin-left: auto;
+}
+.stat-row {
+    display: flex;
+}
+legend.sort-legend {
+    float: left;
+}
+.sort-key-bar {
+    border: 1px solid var(--blackish);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    gap: 1rem;
+    margin-bottom: 25px;
+}
+.sort-select, .sort-order-select {
+    margin-left: 0.5rem;
+}
+.key-square,
+.key-square,
+.key-square {
+    height: 30px;
+    width: 30px;
+    display: inline-block;
+    border-radius: 3px;
+    flex-shrink: 0;
+}
+.keys {
+    font-size: 0.8rem;
+    display: flex;
+    gap: 2rem;
+}
+.read-key, .not-read-key,
+.reading-key {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+}
+
+article.book-card > p,
+.book-card > h2,
+.book-card > select,
+.book-card > button {
+margin-bottom: 0.8rem;
+}
+
+article.book-card > *:last-child {
+    margin-bottom: 0;
+}
+
+.book-card {
+    border-radius: 10px;
+    padding: 1.5rem 1rem;
+}
+
+.remove-book-btn {
+    margin-left: auto;
+    display: block;
+}
+
+.library {
+
+}

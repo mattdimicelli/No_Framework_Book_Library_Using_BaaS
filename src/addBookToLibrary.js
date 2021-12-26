@@ -16,15 +16,19 @@ Book.prototype.info = function() {
 }
 Book.prototype.setReadStatus = function(e, book) {
     const readStatus = e.currentTarget.value;
-    const bookCard = e.currentTarget.parentElement;
-    let bookCardColorClass;
-    if (readStatus === 'read') bookCardColorClass = 'read-color';
-    if (readStatus === 'not-read') bookCardColorClass = 'not-read-color';
-    if (readStatus === 'reading') bookCardColorClass = 'reading-color';
+    const selectDiv = e.currentTarget.parentElement;
+    const bookCard = selectDiv.parentElement;
+    let colorClass;
+    if (readStatus === 'was-read') colorClass = 'read-color';
+    if (readStatus === 'not-read') colorClass = 'not-read-color';
+    if (readStatus === 'reading') colorClass = 'reading-color';
     bookCard.classList.remove('read-color', 'not-read-color', 'reading-color');
-    bookCard.classList.add(bookCardColorClass);
+    selectDiv.classList.remove('read-color', 'not-read-color', 'reading-color');
+    bookCard.classList.add(colorClass);
+    selectDiv.classList.add(colorClass);
     book.readStatus = readStatus;
 }
+
 Book.prototype.removeBook = function(e) {
     let bookCard = e.currentTarget.parentElement;
     myLibrary.splice(bookCard.dataset.id);

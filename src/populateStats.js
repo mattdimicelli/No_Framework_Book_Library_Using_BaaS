@@ -1,6 +1,6 @@
 import { myLibrary } from "./script.js";
 export default function populateStats() {
-    const numRead = myLibrary.filter(book => book.readStatus === 'read').length;
+    const numRead = myLibrary.filter(book => book.readStatus === 'was-read').length;
     const numNotRead = myLibrary.filter(book => book.readStatus === 'not-read')
     .length;
     const numReading = myLibrary.filter(book => book.readStatus === 'reading')
