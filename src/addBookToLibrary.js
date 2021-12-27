@@ -1,8 +1,9 @@
 import { myLibrary } from './script.js';
 
-function Book(title, author, pages, readStatus, language, published, genres) {
+function Book(title, authorName, authorSurname, pages, readStatus, language, published, genres) {
     this.title = title;
-    this.author = author;
+    this.authorName = authorName;
+    this.authorSurname = authorSurname;
     this.pages = pages;
     this.readStatus = readStatus;
     this.language = language;
@@ -10,10 +11,6 @@ function Book(title, author, pages, readStatus, language, published, genres) {
     this.genres = genres;
 }
 
-Book.prototype.info = function() {
-    return `${this.title} by ${this.author}, ${this.pages}, ${this.readStatus ? 
-        'read' : 'not yet read'}`;
-}
 Book.prototype.setReadStatus = function(e, book) {
     const readStatus = e.currentTarget.value;
     const selectDiv = e.currentTarget.parentElement;
@@ -31,13 +28,14 @@ Book.prototype.setReadStatus = function(e, book) {
 
 Book.prototype.removeBook = function(e) {
     let bookCard = e.currentTarget.parentElement;
-    myLibrary.splice(bookCard.dataset.id);
+    myLibrary.splice(bookCard.dataset.id, 1);
     bookCard.remove();
 }
 
 export function addBookToLibrary(
     title,
-    author,
+    authorName,
+    authorSurname,
     pages,
     readStatus,
     language,
@@ -46,7 +44,8 @@ export function addBookToLibrary(
     ) {
     let newBook = new Book(
         title,
-        author,
+        authorName,
+        authorSurname,
         pages,
         readStatus,
         language,

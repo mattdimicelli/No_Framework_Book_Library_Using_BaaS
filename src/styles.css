@@ -7,11 +7,14 @@
     --select-border: #777;
     --select-focus: blue;
     --select-arrow: var(--select-border);
+    --bit-darker-grey: #cecece;
 }
 
 body {
     font-family: sans-serif;
     background-color: var(--lite-grey);
+    color: var(--blackish);
+
     
 }
 
@@ -25,9 +28,10 @@ body {
     background-image: linear-gradient(135deg, #e3e3e3 0%, #5d6874 100%);
 }
 
-input, textarea {
+input, textarea, select:not(select.book-card-select-btn) {
     /* reestablish the default browser styles for just the input elements,
-    which were eliminated by the CSS reset */
+    which were eliminated by the CSS reset, but do not include the
+    special select els that will be used and colored in the book cards */
     all: revert;
 }
 
@@ -60,6 +64,7 @@ input, textarea {
     background-color: var(--lite-grey);
     color: var(--blackish);
     border: 3px solid var(--blackish);
+    cursor: pointer;
 }
 h1 {
     font-size: 3rem;
@@ -97,8 +102,8 @@ legend.sort-legend {
     gap: 1rem;
     margin-bottom: 25px;
 }
-.sort-select, .sort-order-select {
-    margin-left: 0.5rem;
+select.sort-select, select.sort-order-select  {
+    margin-left: 0.5rem !important;
 }
 .key-square,
 .key-square,
@@ -135,12 +140,84 @@ article.book-card > *:last-child {
 .book-card {
     border-radius: 10px;
     padding: 1.5rem 1rem;
+    margin-bottom: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.14) 0px 4px 5px 0px, rgba(0, 0, 0, 0.12) 0px 1px 10px 0px, rgba(0, 0, 0, 0.3) 0px 2px 4px -1px;
 }
 
 .remove-book-btn {
     margin-left: auto;
     display: block;
 }
+
+.remove-book-btn:hover,
+.cancel-new-book-btn:hover {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.book-form-modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.new-book-form {
+    background-color: var(--lite-grey);
+    margin: 0 auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 100%; /* Could be more or less, depending on screen size */
+    max-width: 450px;
+}
+.new-book-form > label {
+    display: block;
+    margin-bottom: 0.3em;
+  }
+.new-book-form-title {
+    font-size: 2rem;
+    margin-top: 0;
+}
+.new-book-form-submit {
+    display: block;
+    border: 1px solid var(--blackish);
+    padding: 0.5rem;
+    width: 100%;
+    text-align: center;
+}
+.new-book-form-submit:hover {
+    background-color: var(--bit-darker-grey);
+    cursor: pointer;
+} 
+.new-book-form-submit {
+    margin-bottom: 1em;
+}
+.new-book-form > input,
+.new-book-form > select#read-status-select,
+.new-book-form,
+select#genres {
+    background-color: var(--lite-grey);
+    margin-bottom: 2em;
+}
+select#genres {
+    display: block;
+}
+.cancel-new-book-btn {
+    font-size: 2em;
+    position: absolute;
+    right: 10px;    
+    top: 0;
+}
+
+
+
+
 
 .library {
 

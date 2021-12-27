@@ -7,11 +7,20 @@ export function newBookFormSubmitHandler(e) {
     const valid = form.reportValidity();
     if (!valid) return;
 
-    const title = document.querySelector('#title').value.trim(); 
+    const titleUnformatted = document.querySelector('#title').value.trim(); 
     //string (with content)
+    const titleFormatted = titleUnformatted.slice(0,1).toUpperCase()
+    + titleUnformatted.slice(1);  //string
 
-    const author = document.querySelector('#author').value.trim();  
+    const authorNameUnformatted = document.querySelector('#author-name').value.trim();  
     //empty string or string (non-empty)
+    const authorNameFormatted = authorNameUnformatted.slice(0,1).toUpperCase()
+    + authorNameUnformatted.slice(1);  //string
+
+    const authorSurnameUnformatted = document.querySelector('#author-surname').value.trim();  
+    //empty string or string (non-empty)
+    const authorSurnameFormatted = authorSurnameUnformatted.slice(0,1).toUpperCase()
+    + authorSurnameUnformatted.slice(1);  //string
 
     const pages = document.querySelector('#pages').value.trim();  
     // empty string or string-number
@@ -30,8 +39,9 @@ export function newBookFormSubmitHandler(e) {
     .filter(option => option.selected).map(option => option.value);  
     //empty array or array of strings
     addBookToLibrary(
-        title,
-        author,
+        titleFormatted,
+        authorNameFormatted,
+        authorSurnameFormatted,
         pages,
         readStatus,
         languageFormatted,
@@ -39,11 +49,13 @@ export function newBookFormSubmitHandler(e) {
         selectedGenres
     );
     form.remove();
+    document.querySelector('.book-form-modal').style.display = '';
     renderBooks();
 }
 
 export function newBookFormCancelHandler() {
     document.querySelector('.new-book-form').remove();
+    document.querySelector('.book-form-modal').style.display = '';
 }
 
 export function openNewBookForm() {
@@ -51,27 +63,32 @@ export function openNewBookForm() {
     if(formInDOM) return;
     let form = 
     `<form class="new-book-form">
+        <button class="cancel-new-book-btn" onclick="newBookFormCancelHandler(event)">
+        ×
+        </button>
+        <h1 class="new-book-form-title">Add New Book</h1>
         <label for="title">Title*</label>
         <input type="text" required="true" id="title" placeholder="Title"
         pattern=".*\\S.*">
         <!-- the pattern is so that the title of the book can't be only 
         whitespace. -->
 
-        <label for="author">Author</label>
-        <input type="text" id="author" placeholder="Author">
+        <label for="author-name">Author's names</label>
+        <input type="text" id="author-name" placeholder="Author's names">
+
+        <label for="author-surname">Author's surname</label>
+        <input type="text" id="author-surname" placeholder="Author's surname">
 
         <label for="pages">Number of pages</label>
         <input type="number" id="pages" placeholder="Number of pages">
         
         <label for="read-status">Have you read this book?</label>
-        <div class="select">
-            <select id="read-status-select" required>
-                <option value="was-read" selected>Read</option>
-                <option value="not-read">Haven't read</option>
-                <option value="reading">Reading</option>
-            </select>
-            <span class="focus"></span>
-        </div>
+        <select id="read-status-select" required>
+            <option value="was-read" selected>Read</option>
+            <option value="not-read">Not read</option>
+            <option value="reading">Reading</option>
+        </select>
+
         <label for="language">Language</label>
         <input id="language" type="text" placeholder="Language" list="languages"
         autocomplete="off">
@@ -120,9 +137,8 @@ export function openNewBookForm() {
     <input type="date" id="published">
 
     <label for="genres">Genre(s)</label>
-    <div class="select">
-        <select type="text" id="genres" multiple="true">
-            <option value="">Genres</option>
+    <select type="text" id="genres" multiple="true">
+        <option value="">Genres</option>
     `;
     const genres = [
         'Action & Adventure',
@@ -167,18 +183,14 @@ export function openNewBookForm() {
     });
     form +=
     `
-        </select>
-        <span class="focus"></span>
-    </div>
+    </select>
     <button class="new-book-form-submit" 
     onclick="newBookFormSubmitHandler(event)">
     Add Book
     </button>
-    <button class="new-book-form-cancel" 
-    onclick="newBookFormCancelHandler(event)">
-    Cancel
-    </button>
     </form>
     `;
-    document.querySelector('.library').insertAdjacentHTML('beforeend', form);    
+    let modal = document.querySelector('.book-form-modal');
+    modal.insertAdjacentHTML('beforeend', form);    
+    modal.style.display = 'block';
 }

@@ -1,6 +1,5 @@
-/* the css reset removed all default styles from the select element.  This 
-select-div (div) will allow the creation of a custom select element which will 
-appear consistently accross browsers. Credit to 
+/* custom styles for the select element to use as the
+"read status button" in the book cards.  Credit to 
 https://moderncss.dev/custom-select-styles-with-pure-css/
 */
 

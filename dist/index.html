@@ -32,25 +32,20 @@
             <div class="sort-key-bar">
                 <fieldset class="sort">
                     <legend class="sort-legend">Sort By: </legend>
-                    <div class="select">
                         <select class="sort-select">
-                            <option>Title</option>
-                            <option>Author</option>
-                            <option>Pages</option>
-                            <option>Read Status</option>
-                            <option>Language</option>
-                            <option>Date of Publication</option>
-                            <option>Genre</option>
+                            <option value="title">Title</option>
+                            <option value="authorName">Author's Name</option>
+                            <option value="authorSurname">Author's Surname</option>
+                            <option value="pages">Pages</option>
+                            <option value="readStatus">Read Status</option>
+                            <option value="language">Language</option>
+                            <option value="published">Date of Publication</option>
+                            <option value="genre">Genre</option>
                         </select>
-                        <span class="focus"></span>
-                    </div>  
-                    <div class="select">
                         <select class="sort-order-select">
                             <option>Desc</option>
                             <option>Asc</option>
                         </select>
-                        <span class="focus"></span>
-                    </div>
                 </fieldset>
                 <div class="keys">
                     <div class="read-key">
@@ -68,6 +63,9 @@
                 </div>  
             </div>
         </header>
+        <div class="book-form-modal">
+            
+        </div>
         <main class="library">
             
         </main>

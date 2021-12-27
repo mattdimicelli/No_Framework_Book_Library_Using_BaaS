@@ -1,20 +1,39 @@
+import populateStats from "./populateStats.js";
 import { myLibrary } from "./script.js";
 function renderBooks() {
     let library = document.querySelector('.library');
+    library.innerHTML = '';
     let fragment = new DocumentFragment();
+    sortLibrary(myLibrary);
     myLibrary.forEach((book, index) => {
-        const {title, author, pages, readStatus, language, published, genres} 
-        = book;
+        const {
+            title,
+            authorName,
+            authorSurname,
+            pages,
+            readStatus,
+            language, 
+            published,
+            genres
+        } = book;
         const whitespaceOnlyRegex = /^\s+$/;
         let bookCard = document.createElement('article');
         bookCard.classList.add('book-card');
         let bookTitle = document.createElement('h2');
         bookTitle.textContent = `Title:  ${title}`;
         let by = document.createElement('p');
-        if(whitespaceOnlyRegex.test(author) || author === '') {
+        if ((whitespaceOnlyRegex.test(authorName) || authorName === '')
+        && (whitespaceOnlyRegex.test(authorSurname) || authorSurname === '')
+        ) {
             by.textContent = '';
         }
-        else by.textContent = `By:  ${author}`;
+        else if(whitespaceOnlyRegex.test(authorName) || authorName === '') {
+            by.textContent = `By:  ${authorSurname}`;
+        }
+        else if(whitespaceOnlyRegex.test(authorSurname) || authorSurname === '') {
+            by.textContent = `By:  ${authorName}`;
+        }
+        else by.textContent = `By:  ${authorName} ${authorSurname}`;
         let bookPages = document.createElement('p');
         if (whitespaceOnlyRegex.test(pages) || pages === '') {
             bookPages.textContent = '';
@@ -26,9 +45,11 @@ function renderBooks() {
         selectSpan.classList.add('focus');
         let readStatusSelect = document.createElement('select');
         readStatusSelect.id = 'read-status';
+        readStatusSelect.classList.add('book-card-select-btn');
         readStatusSelect.required = true;
         readStatusSelect.addEventListener('change', function(e) {
             book.setReadStatus(e, book);
+            populateStats();
         });
         let readOption = document.createElement('option');
         readOption.value = 'was-read';
@@ -80,20 +101,47 @@ function renderBooks() {
         removeBtn.textContent = '×';
         removeBtn.addEventListener('click', function(e) {
             book.removeBook(e);
+            populateStats();
         });
         bookCard.append(
             removeBtn,
             bookTitle,
             by,
             bookPages,
-            selectDiv,
             bookLanguage,
             datePublished,
             bookGenre,
+            selectDiv,
         );
         fragment.append(bookCard);
     });
     library.append(fragment);
+    populateStats();
+}
+
+function sortLibrary(myLibrary) {
+    const sortByValue 
+    = Array.from(document.querySelectorAll('select.sort-select > option'))
+    .find(option => option.selected).value;
+
+    const sortOrder 
+    = Array.from(document.querySelectorAll('select.sort-order-select > option'))
+    .find(option => option.selected).value;
+
+    if(sortOrder === 'Desc') {
+        myLibrary.sort((book1, book2) => {
+            if (book1[sortByValue] > book2[sortByValue]) return -1;
+            if (book1[sortByValue] === book2[sortByValue]) return 0;
+            if (book1[sortByValue] < book2[sortByValue]) return 1;
+        }); 
+    }
+    else if (sortOrder === 'Asc') {
+        myLibrary.sort((book1, book2) => {
+            if (book1[sortByValue] > book2[sortByValue]) return 1;
+            if (book1[sortByValue] === book2[sortByValue]) return 0;
+            if (book1[sortByValue] < book2[sortByValue]) return -1;
+        }); 
+    }
 }
 
 export default renderBooks;

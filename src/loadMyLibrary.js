@@ -1,4 +1,3 @@
-import populateStats from './populateStats.js';
 import renderBooks from './renderBooks.js';
 import {
     newBookFormSubmitHandler,
@@ -16,9 +15,13 @@ export default function loadMyLibrary() {
 
     let openNewBookFormBtn = document.querySelector('button.open-new-book-form');
     openNewBookFormBtn.addEventListener('click', openNewBookForm);
+    let sortBySelect = document.querySelector('select.sort-select');
+    sortBySelect.addEventListener('change', renderBooks);
+    let sortOrder = document.querySelector('select.sort-order-select');
+    sortOrder.addEventListener('change', renderBooks);
+    
 
     let wrapper = document.querySelector('.wrapper');
     wrapper.classList.remove('hidden');
-    populateStats();
     renderBooks();
 }
