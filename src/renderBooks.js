@@ -120,6 +120,7 @@ function renderBooks() {
 }
 
 function sortLibrary(myLibrary) {
+    console.log('function called')
     const sortByValue 
     = Array.from(document.querySelectorAll('select.sort-select > option'))
     .find(option => option.selected).value;
@@ -128,20 +129,26 @@ function sortLibrary(myLibrary) {
     = Array.from(document.querySelectorAll('select.sort-order-select > option'))
     .find(option => option.selected).value;
 
-    if(sortOrder === 'Desc') {
+    if(sortByValue === 'pages') {
         myLibrary.sort((book1, book2) => {
-            if (book1[sortByValue] > book2[sortByValue]) return -1;
-            if (book1[sortByValue] === book2[sortByValue]) return 0;
-            if (book1[sortByValue] < book2[sortByValue]) return 1;
+            if (book1.pages > book2.pages) return -1;
+            if (book1.pages == book2.pages) return 0;
+            if (book1.pages < book2.pages) return 1;
+        });
+    }
+    else if(sortByValue === 'published') {
+        myLibrary.sort((book1, book2) => {
+            return new Date(book1.published) - new Date(book2.published);
         }); 
     }
-    else if (sortOrder === 'Asc') {
+    else {
         myLibrary.sort((book1, book2) => {
-            if (book1[sortByValue] > book2[sortByValue]) return 1;
-            if (book1[sortByValue] === book2[sortByValue]) return 0;
-            if (book1[sortByValue] < book2[sortByValue]) return -1;
+            return book1[sortByValue].localeCompare(book2[sortByValue]);
         }); 
     }
+    
+
+    myLibrary.sort(() => sortOrder === 'Desc' ? 1 : -1);
 }
 
 export default renderBooks;

@@ -136,7 +136,7 @@ export function openNewBookForm() {
     <label for="published">Date published </label>
     <input type="date" id="published">
 
-    <label for="genres">Genre(s)</label>
+    <label for="genres">Genre(s) (Hold Ctrl & click to select multiple genres)</label>
     <select type="text" id="genres" multiple="true">
         <option value="">Genres</option>
     `;
