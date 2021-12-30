@@ -2,10 +2,9 @@ export let myLibrary = [];
 import './reset.css';
 import './styles.css';
 import './selectStyles.css';
-import './initializeFirebaseAuthorization.js';
+import './initializeFirebase.js';
+import './firebaseAuthorization.js';
 
-import loadMyLibrary from './loadMyLibrary';
-loadMyLibrary();
 
 
 

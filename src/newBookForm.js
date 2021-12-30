@@ -4,33 +4,33 @@ import { addBookToLibrary } from './addBookToLibrary.js';
 export function newBookFormSubmitHandler(e) {
     e.preventDefault();
     const form = document.querySelector('.new-book-form');
-    const valid = form.reportValidity();
-    if (!valid) return;
+    if (!form.reportValidity()) return;
 
     const titleUnformatted = document.querySelector('#title').value.trim(); 
-    //string (with content)
+    //non-empty string
     const titleFormatted = titleUnformatted.slice(0,1).toUpperCase()
     + titleUnformatted.slice(1);  //string
 
     const authorNameUnformatted = document.querySelector('#author-name').value.trim();  
-    //empty string or string (non-empty)
+    //empty string or non-empty string
     const authorNameFormatted = authorNameUnformatted.slice(0,1).toUpperCase()
     + authorNameUnformatted.slice(1);  //string
 
     const authorSurnameUnformatted = document.querySelector('#author-surname').value.trim();  
-    //empty string or string (non-empty)
+    //empty string or non-empty string
     const authorSurnameFormatted = authorSurnameUnformatted.slice(0,1).toUpperCase()
     + authorSurnameUnformatted.slice(1);  //string
 
     const pages = document.querySelector('#pages').value.trim();  
-    // empty string or string-number
+    // empty string or "string-number"
 
     const readStatus = document.querySelector('#read-status-select').value;  
-    //string (non-empty)
+    // non-empty string
 
     const languageUnformatted = document.querySelector('#language').value.trim();
     const languageFormatted = languageUnformatted.slice(0,1).toUpperCase()
     + languageUnformatted.slice(1).toLowerCase();  //string
+
     const publishedDate = document.querySelector('#published').value;  
     //string
 
@@ -61,7 +61,7 @@ export function newBookFormCancelHandler() {
 export function openNewBookForm() {
     const formInDOM = document.querySelector('.new-book-form');
     if(formInDOM) return;
-    let form = 
+    let newBookForm = 
     `<form class="new-book-form">
         <button class="cancel-new-book-btn" onclick="newBookFormCancelHandler(event)">
         ×
@@ -80,7 +80,7 @@ export function openNewBookForm() {
         <input type="text" id="author-surname" placeholder="Author's surname">
 
         <label for="pages">Number of pages</label>
-        <input type="number" id="pages" placeholder="Number of pages">
+        <input type="number" id="pages" placeholder="Number of pages" min="1">
         
         <label for="read-status">Have you read this book?</label>
         <select id="read-status-select" required>
@@ -127,9 +127,9 @@ export function openNewBookForm() {
         'Polish'
     ];
     languages.sort().forEach(language => {
-        form += `<option>${language}</option>`;
+        newBookForm += `<option>${language}</option>`;
     });
-    form += 
+    newBookForm += 
     `
     </datalist>
 
@@ -138,7 +138,6 @@ export function openNewBookForm() {
 
     <label for="genres">Genre(s) (Hold Ctrl & click to select multiple genres)</label>
     <select type="text" id="genres" multiple="true">
-        <option value="">Genres</option>
     `;
     const genres = [
         'Action & Adventure',
@@ -179,9 +178,9 @@ export function openNewBookForm() {
         'Other'
     ]
     genres.sort().forEach(genre => {
-        form += `<option>${genre}</option>`;
+        newBookForm += `<option>${genre}</option>`;
     });
-    form +=
+    newBookForm +=
     `
     </select>
     <button class="new-book-form-submit" 
@@ -191,6 +190,6 @@ export function openNewBookForm() {
     </form>
     `;
     let modal = document.querySelector('.book-form-modal');
-    modal.insertAdjacentHTML('beforeend', form);    
+    modal.insertAdjacentHTML('beforeend', newBookForm);    
     modal.style.display = 'block';
 }

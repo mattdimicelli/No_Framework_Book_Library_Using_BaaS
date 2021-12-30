@@ -3,15 +3,22 @@ import {
     newBookFormSubmitHandler,
     newBookFormCancelHandler,
     openNewBookForm 
-} from './bookForm.js';
+} from './newBookForm.js';
 
 export default function loadMyLibrary() {
+    addEventListeners();
+    hideSignIn();
+    showLibrary();
+}
+
+function addEventListeners() {
     window.newBookFormSubmitHandler = newBookFormSubmitHandler;
     window.newBookFormCancelHandler = newBookFormCancelHandler;
     /* the two inline event handlers in the HTML call these functions
     which are renamed when Webpack bundles the app.  Both of these functions
     are added to the global scope so that the HTML can call them even
-    after the bundling */
+    after the bundling.  This design choice, while maybe not ideal,
+    was a work-around that I found interesting enough to leave */
 
     let openNewBookFormBtn = document.querySelector('button.open-new-book-form');
     openNewBookFormBtn.addEventListener('click', openNewBookForm);
@@ -19,9 +26,16 @@ export default function loadMyLibrary() {
     sortBySelect.addEventListener('change', renderBooks);
     let sortOrder = document.querySelector('select.sort-order-select');
     sortOrder.addEventListener('change', renderBooks);
-    
+}
 
+function hideSignIn() {
+    let signInWrapper = document.querySelector('.sign-in-wrapper');
+    signInWrapper.classList.add('hidden');
+}
+
+function showLibrary() {
     let wrapper = document.querySelector('.wrapper');
     wrapper.classList.remove('hidden');
+    
     renderBooks();
 }

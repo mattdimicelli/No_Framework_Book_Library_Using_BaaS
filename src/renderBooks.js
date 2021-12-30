@@ -16,12 +16,15 @@ function renderBooks() {
             published,
             genres
         } = book;
+
         const whitespaceOnlyRegex = /^\s+$/;
+
         let bookCard = document.createElement('article');
         bookCard.classList.add('book-card');
         let bookTitle = document.createElement('h2');
         bookTitle.textContent = `Title:  ${title}`;
         let by = document.createElement('p');
+
         if ((whitespaceOnlyRegex.test(authorName) || authorName === '')
         && (whitespaceOnlyRegex.test(authorSurname) || authorSurname === '')
         ) {
@@ -34,22 +37,31 @@ function renderBooks() {
             by.textContent = `By:  ${authorName}`;
         }
         else by.textContent = `By:  ${authorName} ${authorSurname}`;
+
         let bookPages = document.createElement('p');
         if (whitespaceOnlyRegex.test(pages) || pages === '') {
             bookPages.textContent = '';
         }
         else bookPages.textContent = `Pages:  ${pages}`;
+
         let selectDiv = document.createElement('div');
+        // this div is used to color the <select> el
         selectDiv.classList.add('select');
         let selectSpan = document.createElement('span');
+        // the span is also used to style the <select> el
         selectSpan.classList.add('focus');
         let readStatusSelect = document.createElement('select');
-        readStatusSelect.id = 'read-status';
+        // readStatusSelect.id = 'read-status';
         readStatusSelect.classList.add('book-card-select-btn');
         readStatusSelect.required = true;
         readStatusSelect.addEventListener('change', function(e) {
-            book.setReadStatus(e, book);
-            populateStats();
+            const newReadStatus = e.currentTarget.value;
+            readStatusSelectChangeHandler(
+                book,
+                newReadStatus,
+                selectDiv,
+                bookCard
+            );
         });
         let readOption = document.createElement('option');
         readOption.value = 'was-read';
@@ -86,7 +98,8 @@ function renderBooks() {
         datePublished.textContent = published ? `Published:  ${published}` : '';
         let bookGenre = document.createElement('p');
         bookGenre.textContent = '';
-        if (genres.length > 0) {
+        if (genres.length === 1) bookGenre.textContent = `Genres:  ${genres[0]}`;
+        if (genres.length > 1) {
             genres.forEach((genre, index) => {
                 if (index === 0) bookGenre.textContent = `Genres:  ${genre}, `;
                 else if (index === genres.length - 1) {
@@ -101,7 +114,7 @@ function renderBooks() {
         removeBtn.textContent = '×';
         removeBtn.addEventListener('click', function(e) {
             book.removeBook(e);
-            populateStats();
+            renderBooks();
         });
         bookCard.append(
             removeBtn,
@@ -120,7 +133,6 @@ function renderBooks() {
 }
 
 function sortLibrary(myLibrary) {
-    console.log('function called')
     const sortByValue 
     = Array.from(document.querySelectorAll('select.sort-select > option'))
     .find(option => option.selected).value;
@@ -131,9 +143,9 @@ function sortLibrary(myLibrary) {
 
     if(sortByValue === 'pages') {
         myLibrary.sort((book1, book2) => {
-            if (book1.pages > book2.pages) return -1;
+            if (book1.pages > book2.pages) return 1;
             if (book1.pages == book2.pages) return 0;
-            if (book1.pages < book2.pages) return 1;
+            if (book1.pages < book2.pages) return -1;
         });
     }
     else if(sortByValue === 'published') {
@@ -142,13 +154,29 @@ function sortLibrary(myLibrary) {
         }); 
     }
     else {
+        /* for title, authorName, authorSurname, readStatus, language, and
+        genres, use localeCompare to more accurately sort strings */
         myLibrary.sort((book1, book2) => {
             return book1[sortByValue].localeCompare(book2[sortByValue]);
         }); 
     }
     
-
     myLibrary.sort(() => sortOrder === 'Desc' ? 1 : -1);
+}
+
+function readStatusSelectChangeHandler(book, newReadStatus, selectDiv, bookCard) {
+    book.setReadStatus(newReadStatus);
+    let colorClass;
+    if (newReadStatus === 'was-read') colorClass = 'read-color';
+    if (newReadStatus === 'not-read') colorClass = 'not-read-color';
+    if (newReadStatus === 'reading') colorClass = 'reading-color';
+    bookCard.classList.remove('read-color', 'not-read-color', 'reading-color');
+    selectDiv.classList.remove('read-color', 'not-read-color', 'reading-color');
+    /* the div around the select el is what colors it.  the select can't be 
+    colored itself */
+    bookCard.classList.add(colorClass);
+    selectDiv.classList.add(colorClass);
+    renderBooks();
 }
 
 export default renderBooks;

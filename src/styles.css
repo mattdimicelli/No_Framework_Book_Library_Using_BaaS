@@ -14,8 +14,6 @@ body {
     font-family: sans-serif;
     background-color: var(--lite-grey);
     color: var(--blackish);
-
-    
 }
 
 .read-color {
@@ -35,10 +33,7 @@ input, textarea, select:not(select.book-card-select-btn) {
     all: revert;
 }
 
-/* .hidden {
-    display: none;
-} */
-#firebaseui-auth-container, #loader {
+.hidden {
     display: none;
 }
 
@@ -78,6 +73,9 @@ h1 {
     color: var(--blackish);
     border: 1px solid var(--blackish);
     margin: 25px 20px;
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
 }
 .stats-title {
     font-size: 1.5rem;
@@ -98,7 +96,7 @@ legend.sort-legend {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem;
     gap: 1rem;
     margin-bottom: 25px;
 }
@@ -175,6 +173,7 @@ article.book-card > *:last-child {
     border: 1px solid #888;
     width: 100%; /* Could be more or less, depending on screen size */
     max-width: 450px;
+    position: relative;
 }
 .new-book-form > label {
     display: block;
@@ -200,11 +199,11 @@ article.book-card > *:last-child {
 }
 .new-book-form > input,
 .new-book-form > select#read-status-select,
-.new-book-form,
 select#genres {
     background-color: var(--lite-grey);
     margin-bottom: 2em;
 }
+
 select#genres {
     display: block;
 }
@@ -214,11 +213,41 @@ select#genres {
     right: 10px;    
     top: 0;
 }
-
-
-
-
-
-.library {
-
+.book-shelf {
+    display: none;
 }
+.book-shelf-sign-in {
+    margin: 0 auto;
+    display: block;
+}
+
+@media (min-width: 600px) {
+    .book-card {
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .sort-key-bar {
+        margin-bottom: 50px;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+    .top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .book-shelf {
+        display: block;
+        width: 250px;
+    }
+    .stats {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
+
+
