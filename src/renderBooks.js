@@ -17,13 +17,17 @@ function renderBooks() {
             genres
         } = book;
 
+
         const whitespaceOnlyRegex = /^\s+$/;
+
 
         let bookCard = document.createElement('article');
         bookCard.classList.add('book-card');
+        bookCard.dataset.id = index;
         let bookTitle = document.createElement('h2');
         bookTitle.textContent = `Title:  ${title}`;
         let by = document.createElement('p');
+
 
         if ((whitespaceOnlyRegex.test(authorName) || authorName === '')
         && (whitespaceOnlyRegex.test(authorSurname) || authorSurname === '')
@@ -38,11 +42,13 @@ function renderBooks() {
         }
         else by.textContent = `By:  ${authorName} ${authorSurname}`;
 
+
         let bookPages = document.createElement('p');
         if (whitespaceOnlyRegex.test(pages) || pages === '') {
             bookPages.textContent = '';
         }
         else bookPages.textContent = `Pages:  ${pages}`;
+
 
         let selectDiv = document.createElement('div');
         // this div is used to color the <select> el
@@ -63,6 +69,8 @@ function renderBooks() {
                 bookCard
             );
         });
+
+
         let readOption = document.createElement('option');
         readOption.value = 'was-read';
         readOption.textContent = 'Read';
@@ -87,15 +95,23 @@ function renderBooks() {
             bookCard.classList.add('reading-color');
             selectDiv.classList.add('reading-color');
         } 
+
+
         readStatusSelect.append(readOption, notReadOption, readingOption);
         selectDiv.append(readStatusSelect, selectSpan);
+
+
         let bookLanguage = document.createElement('p');
         if (whitespaceOnlyRegex.test(language) || language === '') {
             bookLanguage.textContent = '';
         }
         else bookLanguage.textContent = `Language:  ${language}`;
+
+
         let datePublished = document.createElement('p');
         datePublished.textContent = published ? `Published:  ${published}` : '';
+
+
         let bookGenre = document.createElement('p');
         bookGenre.textContent = '';
         if (genres.length === 1) bookGenre.textContent = `Genres:  ${genres[0]}`;
@@ -108,14 +124,18 @@ function renderBooks() {
                 else bookGenre.textContent += genre + ', ';
             });
         }
-        bookCard.dataset.id = index;  
+
+
+          
         let removeBtn = document.createElement('button');
         removeBtn.classList.add('remove-book-btn');
         removeBtn.textContent = '×';
         removeBtn.addEventListener('click', function(e) {
-            book.removeBook(e);
-            renderBooks();
+            let bookCardToDelete = e.currentTarget.parentElement;
+            removeBookHandler(bookCardToDelete);
         });
+
+
         bookCard.append(
             removeBtn,
             bookTitle,
@@ -126,8 +146,12 @@ function renderBooks() {
             bookGenre,
             selectDiv,
         );
+
+
         fragment.append(bookCard);
     });
+
+    
     library.append(fragment);
     populateStats();
 }
@@ -176,6 +200,13 @@ function readStatusSelectChangeHandler(book, newReadStatus, selectDiv, bookCard)
     colored itself */
     bookCard.classList.add(colorClass);
     selectDiv.classList.add(colorClass);
+    renderBooks();
+}
+
+function removeBookHandler(bookCardToDelete) {
+    let bookToDelete = myLibrary[bookCardToDelete.dataset.id];
+    bookToDelete.removeBook();
+    bookCardToDelete.remove();
     renderBooks();
 }
 

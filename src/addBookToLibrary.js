@@ -15,10 +15,8 @@ Book.prototype.setReadStatus = function(readStatus) {
     this.readStatus = readStatus;
 }
 
-Book.prototype.removeBook = function(e) {
-    let bookCard = e.currentTarget.parentElement;
-    myLibrary.splice(bookCard.dataset.id, 1);
-    bookCard.remove();
+Book.prototype.removeBook = function() {
+    myLibrary.splice(this.dataset.id, 1);
 }
 
 export function addBookToLibrary(
