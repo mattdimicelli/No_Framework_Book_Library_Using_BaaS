@@ -1,5 +1,6 @@
 import populateStats from "./populateStats.js";
-import { myLibrary } from "./script.js";
+import { myLibrary } from "./loadMyLibrary";
+
 function renderBooks() {
     let library = document.querySelector('.library');
     library.innerHTML = '';
@@ -204,8 +205,9 @@ function readStatusSelectChangeHandler(book, newReadStatus, selectDiv, bookCard)
 }
 
 function removeBookHandler(bookCardToDelete) {
-    let bookToDelete = myLibrary[bookCardToDelete.dataset.id];
-    bookToDelete.removeBook();
+    const index = bookCardToDelete.dataset.id;
+    let bookToDelete = myLibrary[index];
+    bookToDelete.removeBook(index);
     bookCardToDelete.remove();
     renderBooks();
 }

@@ -4,12 +4,20 @@ import {
     newBookFormCancelHandler,
     openNewBookForm 
 } from './newBookForm.js';
+import { loadLibraryFromDatabase } from './firebaseRealtimeDatabase.js';
 
-export default function loadMyLibrary() {
+export let myLibrary = [];
+
+export default async function loadMyLibrary(userId) {
     addEventListeners();
     hideSignIn();
+    const loadedLibrary = await loadLibraryFromDatabase(userId);
+    if (loadedLibrary) myLibrary = loadedLibrary;
+    console.log(myLibrary);
     showLibrary();
 }
+
+
 
 function addEventListeners() {
     window.newBookFormSubmitHandler = newBookFormSubmitHandler;

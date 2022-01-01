@@ -1,4 +1,6 @@
-import { myLibrary } from './script.js';
+import { myLibrary } from './loadMyLibrary.js';
+import { saveLibraryToDatabase } from './firebaseRealtimeDatabase.js';
+import { globalUser } from './firebaseAuthentication.js';
 
 function Book(title, authorName, authorSurname, pages, readStatus, language, published, genres) {
     this.title = title;
@@ -13,11 +15,14 @@ function Book(title, authorName, authorSurname, pages, readStatus, language, pub
 
 Book.prototype.setReadStatus = function(readStatus) {
     this.readStatus = readStatus;
+    saveLibraryToDatabase(globalUser.uid);
 }
 
-Book.prototype.removeBook = function() {
-    myLibrary.splice(this.dataset.id, 1);
+Book.prototype.removeBook = function(index) {
+    myLibrary.splice(index, 1);
+    saveLibraryToDatabase(globalUser.uid);
 }
+
 
 export function addBookToLibrary(
     title,
@@ -40,4 +45,6 @@ export function addBookToLibrary(
         genres
         );
     myLibrary.push(newBook);
+    console.log(globalUser);
+    saveLibraryToDatabase(globalUser.uid);
 }

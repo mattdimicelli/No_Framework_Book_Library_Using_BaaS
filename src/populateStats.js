@@ -1,4 +1,4 @@
-import { myLibrary } from "./script.js";
+import { myLibrary } from "./loadMyLibrary";
 export default function populateStats() {
     const numRead = myLibrary.filter(book => book.readStatus === 'was-read')
     .length;
