@@ -6,9 +6,21 @@ export async function loadLibraryFromDatabase(userId) {
     try {
       const snapshot = await get(child(dbRef, `users/${userId}`));
       if (snapshot.exists()) {
-        console.log('snapshot returned')
-        let library = snapshot.val();
-        return JSON.parse(library);
+        let libraryData = snapshot.val();
+        let newLocalMyLibrary = [];
+        for (let bookData of libraryData) {
+          let book = { ...bookData };
+          if (book.genres === 'no genre') {
+            book.genres = [];
+            // Locally the book genres are stored in array, but if the book in 
+            // question did not have any genres defined, the array was converted
+            // into a string for purposes of storing that "empty" genres value
+            // in the Firebase database, since the Firebase database will not
+            // store an empty array.
+          }
+          newLocalMyLibrary.push(book);
+        }
+        return newLocalMyLibrary;
       } else {
       console.log("User does not have library stored in database");
       } 
@@ -19,14 +31,17 @@ export async function loadLibraryFromDatabase(userId) {
 }
 
 export function saveLibraryToDatabase(userId) {
-    console.log(userId);
-    let dataToUpload;
+    let dataToUpload = [];
     for (let book of myLibrary) {
-        
-    })    
-    console.log(myLibrary);
+        let bookData = {...book};
+        if (bookData.genres.length === 0) {
+          bookData.genres = 'no genre';
+          // Firebase will not store an empty array
+        }
+        dataToUpload.push(bookData);
+    }    
     const db = getDatabase();
-    set(ref(db, 'users/' + userId), JSON.stringify(myLibrary));
+    set(ref(db, 'users/' + userId), dataToUpload);
 }
 
 

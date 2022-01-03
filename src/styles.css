@@ -61,22 +61,44 @@ input, textarea, select:not(select.book-card-select-btn) {
     border: 3px solid var(--blackish);
     cursor: pointer;
 }
-h1 {
+.app-title,
+.user-display-name {
     font-size: 3rem;
     text-align: center;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
     font-weight: 900;
 }
+
+.user-display-name {
+    font-size: 1.5rem;
+    margin-top: 1rem;
+}
+
+.logout {
+    background-color: var(--blackish);
+    color: var(--lite-grey);
+    padding: 0.5em;
+    border-radius: 0.5em;
+    margin: 0 auto;
+    display: block;
+}
+.logout:hover,
+.logout:focus {
+    background-color: var(--lite-grey);
+    color: var(--blackish);
+    border: 1px solid var(--blackish);
+}
+
 .stats {
     padding: 0.5rem 2rem;
     color: var(--blackish);
     border: 1px solid var(--blackish);
-    margin: 25px 20px;
+    margin-bottom: 25px;
     max-width: 300px;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 15px;
 }
+
 .stats-title {
     font-size: 1.5rem;
     font-weight: 500;

@@ -5,15 +5,17 @@ import {
     openNewBookForm 
 } from './newBookForm.js';
 import { loadLibraryFromDatabase } from './firebaseRealtimeDatabase.js';
+import { globalUser, logOut as signOut } from './firebaseAuthentication.js';
+
 
 export let myLibrary = [];
 
 export default async function loadMyLibrary(userId) {
     addEventListeners();
     hideSignIn();
+    showUserDisplayName();
     const loadedLibrary = await loadLibraryFromDatabase(userId);
     if (loadedLibrary) myLibrary = loadedLibrary;
-    console.log(myLibrary);
     showLibrary();
 }
 
@@ -34,6 +36,8 @@ function addEventListeners() {
     sortBySelect.addEventListener('change', renderBooks);
     let sortOrder = document.querySelector('select.sort-order-select');
     sortOrder.addEventListener('change', renderBooks);
+    let logOut = document.querySelector('.logout');
+    logOut.addEventListener('click', signOut);
 }
 
 function hideSignIn() {
@@ -46,4 +50,9 @@ function showLibrary() {
     wrapper.classList.remove('hidden');
     
     renderBooks();
+}
+
+function showUserDisplayName() {
+    let displayName = document.querySelector('.user-display-name');
+    displayName.textContent = `${globalUser.displayName}'s`;
 }
