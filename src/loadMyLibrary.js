@@ -12,7 +12,6 @@ export let myLibrary = [];
 
 export default async function loadMyLibrary(userId) {
     addEventListeners();
-    hideSignIn();
     showUserDisplayName();
     const loadedLibrary = await loadLibraryFromDatabase(userId);
     if (loadedLibrary) myLibrary = loadedLibrary;
@@ -40,15 +39,10 @@ function addEventListeners() {
     logOut.addEventListener('click', signOut);
 }
 
-function hideSignIn() {
-    let signInWrapper = document.querySelector('.sign-in-wrapper');
-    signInWrapper.classList.add('hidden');
-}
 
 function showLibrary() {
     let wrapper = document.querySelector('.wrapper');
     wrapper.classList.remove('hidden');
-    
     renderBooks();
 }
 

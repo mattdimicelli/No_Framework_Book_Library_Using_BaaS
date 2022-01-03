@@ -13,18 +13,7 @@ function Book(title, authorName, authorSurname, pages, readStatus, language, pub
     this.genres = genres;
 }
 
-Book.prototype.setReadStatus = function(readStatus) {
-    this.readStatus = readStatus;
-    saveLibraryToDatabase(globalUser.uid);
-}
-
-Book.prototype.removeBook = function(index) {
-    myLibrary.splice(index, 1);
-    saveLibraryToDatabase(globalUser.uid);
-}
-
-
-export function addBookToLibrary(
+function addBookToLibrary(
     title,
     authorName,
     authorSurname,
@@ -48,3 +37,16 @@ export function addBookToLibrary(
     console.log(globalUser);
     saveLibraryToDatabase(globalUser.uid);
 }
+
+Book.prototype.setReadStatus = function(readStatus) {
+    this.readStatus = readStatus;
+    saveLibraryToDatabase(globalUser.uid);
+}
+
+Book.prototype.removeBook = function(index) {
+    myLibrary.splice(index, 1);
+    saveLibraryToDatabase(globalUser.uid);
+}
+
+
+export { addBookToLibrary, Book };

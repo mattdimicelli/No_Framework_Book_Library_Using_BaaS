@@ -1,5 +1,6 @@
 import { getDatabase, ref, child, get, set } from 'firebase/database';
 import { myLibrary } from './loadMyLibrary.js';
+import { Book } from './addBookToLibrary.js';
 
 export async function loadLibraryFromDatabase(userId) {
     const dbRef = ref(getDatabase());
@@ -9,7 +10,10 @@ export async function loadLibraryFromDatabase(userId) {
         let libraryData = snapshot.val();
         let newLocalMyLibrary = [];
         for (let bookData of libraryData) {
-          let book = { ...bookData };
+          const { title, authorName, authorSurname, pages, readStatus, language,
+             published, genres } = bookData;
+          let book = new Book(title, authorName, authorSurname, pages, 
+            readStatus, language, published, genres);
           if (book.genres === 'no genre') {
             book.genres = [];
             // Locally the book genres are stored in array, but if the book in 

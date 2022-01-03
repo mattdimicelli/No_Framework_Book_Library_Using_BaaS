@@ -270,6 +270,30 @@ select#genres {
         margin-right: 0;
     }
 }
+@media (min-width: 760px) {
+    .library {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 1rem;
+        margin-left: ;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        padding-bottom: 1rem;
+    }
+    .book-card {
+        margin-bottom: 0;
+    }
+    .book-card {
+        width: 100%;
+    }
+}
+
+@media (min-width: 900px) { 
+    .library{
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+    
+}
 
 
 

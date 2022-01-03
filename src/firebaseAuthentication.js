@@ -13,33 +13,28 @@ const app = firebase.initializeApp(firebaseConfig);
 // and shares authentification across Firebase services
 
 const auth = getAuth();
+onAuthStateChanged(auth, user => {
+  if (user) {
+    // user is signed in 
+    globalUser.uid = user.uid;
+    globalUser.displayName = user.displayName;
+    loadMyLibrary(user.uid);
+    hideSignIn();
+  } else {
+    // user is signed out
+    startFirebaseUI();
+    showSignIn();
+    hideLibrary();
+  }
+});
 
+var ui = new firebaseui.auth.AuthUI(firebase.auth());
+ui.disableAutoSignIn();
 
-loadSignInPage();
-
-
-function loadSignInPage() {
-  var ui = new firebaseui.auth.AuthUI(firebase.auth());
-  startFirebaseUI(ui);
-
-  onAuthStateChanged(auth, user => {
-    if (user) {
-      // user is signed in 
-      globalUser.uid = user.uid;
-      globalUser.displayName = user.displayName;
-    } else {
-      // user is signed out
-      ui.reset();
-      startFirebaseUI(ui);
-    }
-  });
-}
-
-function startFirebaseUI(ui) {
+function startFirebaseUI() {
   ui.start('#firebaseui-auth-container', {
     callbacks: {
-      signInSuccessWithAuthResult: function(AuthResult) {
-        loadMyLibrary(AuthResult.user.uid);
+      signInSuccessWithAuthResult: function() {
         return false;  // means that the page will not be automatically redirected
       },
       uiShown: function() {
@@ -52,8 +47,15 @@ function startFirebaseUI(ui) {
     },
     signInOptions: [
       firebase.auth.EmailAuthProvider.PROVIDER_ID,
-      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
       firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+      {
+        provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+        customParameters: {
+          // Forces account selection even when one account
+          // is available.
+          prompt: 'select_account',
+        },
+      },
     ],
     // tosUrl and privacyPolicyUrl accept either url string or a callback
         // function.
@@ -66,10 +68,23 @@ function startFirebaseUI(ui) {
   });  
 }
 
-
 function logOut() {
-  console.log('fire');
   signOut(auth);
+}
+
+function hideSignIn() {
+  let signInWrapper = document.querySelector('.sign-in-wrapper');
+  signInWrapper.classList.add('hidden');
+}
+
+function showSignIn() {
+  let signInWrapper = document.querySelector('.sign-in-wrapper');
+  signInWrapper.classList.remove('hidden');
+}
+
+function hideLibrary() {
+  let wrapper = document.querySelector('.wrapper');
+  wrapper.classList.add('hidden');
 }
 
 

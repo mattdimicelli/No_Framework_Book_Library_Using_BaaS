@@ -80,7 +80,8 @@ export function openNewBookForm() {
         <input type="text" id="author-surname" placeholder="Author's surname">
 
         <label for="pages">Number of pages</label>
-        <input type="number" id="pages" placeholder="Number of pages" min="1">
+        <input type="number" id="pages" placeholder="Number of pages" min="1"
+        step="1">
         
         <label for="read-status">Have you read this book?</label>
         <select id="read-status-select" required>
