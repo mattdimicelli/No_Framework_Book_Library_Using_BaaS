@@ -25,7 +25,9 @@ I started with the design requirements which are spelled out in on the Library l
 
 ### Screenshot
 
-![](./screenshot_for_readme.png)
+<p align="center">
+  <img src="./screenshot_for_readme.png" alt="screenshot of library app" width="30%" height="30%">
+</p>
 
 ### Links
 
