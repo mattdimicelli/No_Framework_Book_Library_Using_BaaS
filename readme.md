@@ -1,16 +1,6 @@
 # Readme
 # Library App
 
-## Table of contents
-  - [Overview](#overview)
-    - [Challenge](#challenge) 
-    - [Screenshot](#screenshot)
-    - [Links](#links)
-  - [My process](#my-process)
-    - [Built with](#built-with)
-    - [What I learned](#what-i-learned)
-
-
 ## Overview
 
 A Library app which allows the user to keep track of his or her books.  The app 
