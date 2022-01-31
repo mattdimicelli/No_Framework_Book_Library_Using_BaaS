@@ -1,5 +1,5 @@
 # Readme
-# Library App
+# Book Library App
 
 ## Overview
 
@@ -22,7 +22,7 @@ I started with the design requirements which are spelled out in on the Library l
 ### Links
 
 - [Live site](https://mylibrary-mrd.web.app/)
-- [Repo](https://github.com/mattdimicelli/library2)
+- [Repo](https://github.com/mattdimicelli/No_Framework_Book_Library_Using_BaaS)
 
 ## My process
 
